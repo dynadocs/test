@@ -1,0 +1,57 @@
+name: Build iperf3 x64 static via cygwin action
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - run: git config --global core.autocrlf input
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Cygwin
+        uses: cygwin/cygwin-install-action@master
+        with:
+          platform: x86_64
+          packages: automake,bsdtar,curl,gcc-core,gcc-g++,git,gnupg,libjansson-devel,libncurses-devel,libssl-devel,libtool,make,patch,pkg-config,openssl
+
+      - name: Single-line inline shell
+        run: |
+          echo "Running in $(pwd)"
+          echo "HOME is $HOME"
+        shell: C:\cygwin\bin\bash.exe '{0}'
+
+      - name: Build static
+        run: |
+          git clone "https://github.com/esnet/iperf.git" "$HOME/iperf3_build"'
+          cd "$HOME/iperf3_build"
+          ./bootstrap.sh
+          ./configure --disable-shared --enable-static-bin --prefix=$HOME/iperf3
+          make
+          make install
+        shell: C:\cygwin\bin\bash.exe '{0}'
+
+      - name: Archive build
+        run: Compress-Archive .\home\iperf3 iperf3-amd64-win.zip
+
+      - name: "Create release"
+        uses: ncipollo/release-action@v1
+        with:
+          prerelease: false
+          artifacts: "iperf3-amd64-win.zip"
+          replacesArtifacts: true
+          tag: test
+          name: Iperf3
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
