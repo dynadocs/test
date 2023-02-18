@@ -26,8 +26,8 @@ jobs:
           ./system\bin\bash.exe -lc 'git clone "https://github.com/esnet/iperf.git" "$HOME/iperf3"'
           ./system\bin\bash.exe -lc 'cd "$HOME/iperf3"; ./bootstrap.sh'
           ./system\bin\bash.exe -lc 'cd "$HOME/iperf3"; ./configure --disable-shared --enable-static-bin --prefix=$HOME/iperf3_build'
-          ./system\bin\bash.exe -lc 'make'
-          ./system\bin\bash.exe -lc 'make install'
+          ./system\bin\bash.exe -lc 'cd "$HOME/iperf3"; make'
+          ./system\bin\bash.exe -lc 'cd "$HOME/iperf3"; make install'
 
       - name: Archive build
         run: Compress-Archive .\home\iperf3 iperf3-amd64-win.zip
