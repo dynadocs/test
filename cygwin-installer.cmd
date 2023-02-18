@@ -32,13 +32,13 @@
 :: You can customize the following variables to your needs before running the batch file:
 
 :: Choose a user name that will be used to configure Cygwin. This user will be a clone of the account running the installation script renamed as the setting chosen.
-set LFTP4WIN_USERNAME=LFTP4WIN
+set LFTP4WIN_USERNAME=IPERF3_BUILD
 
 :: Show the packet manager if you need to specify a program version during installation instead of using the current release (default), like openssh 7.9 instead of 8.0 for Lftp.
 set CYGWIN_PACKET_MANAGER=
 
 :: Select the packages to be installed automatically - required packages for LFTP4WIN:bsdtar,bash-completion,curl,lftp,ssh-pageant,openssh
-set CYGWIN_PACKAGES=automake,bash-completion,bsdtar,bzip2,ca-certificates,cmake,cmake-gui,curl,gcc-core,gcc-core,gcc-g++,gcc-g++,gdb,git,gnupg,install,lftp,libjansson-devel,libncurses-devel,libssl-dev,libtool,make,ncurses,openssh,openssl,patch,perl,pkg-config,procps-ng,python3-devel,ssh-pageant,sshpass,tar,wget,xz
+set CYGWIN_PACKAGES=automake,bsdtar,curl,gcc-core,gcc-g++,git,gnupg,libjansson-devel,libncurses-devel,libssl-dev,libtool,make,patch,pkg-config
 
 :: Install the LFTP4WIN Skeleton files to use lftp via WinSCP and Conemu. Installs Conemu, kitty, WinSCP, notepad++ and makes a few minor modifications to the default cygin installation.
 set INSTALL_LFTP4WIN_CORE=no
