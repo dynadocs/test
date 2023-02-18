@@ -15,21 +15,30 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      
+    - run: git config --global core.autocrlf input
+
       - name: Checkout
         uses: actions/checkout@v3
+
+    - name: Install Cygwin
+      uses: ./
+      with:
+        platform: ${{ matrix.platform }}
+        packages: ${{ matrix.packages }}
+        add-to-path: false
+
 
       - name: Install cygwin tools
         run: .\cygwin-installer.cmd
 
       - name: Build static
         run: |
-          ./system\bin\bash.exe -li
-          git clone "https://github.com/esnet/iperf.git" "$HOME/iperf3_src"
-          cd "$HOME/iperf3_src"
-          ./bootstrap.sh
-          ./configure --disable-shared --enable-static-bin --prefix="$HOME/iperf3"
-          make
-          make install
+          ./system\bin\bash.exe -lc 'git clone "https://github.com/esnet/iperf.git" "$HOME/iperf3"'
+          ./system\bin\bash.exe -lc 'cd "$HOME/iperf3"; ./bootstrap.sh'
+          ./system\bin\bash.exe -lc 'cd "$HOME/iperf3"; ./configure --disable-shared --enable-static-bin --prefix=$HOME/iperf3_build'
+          ./system\bin\bash.exe -lc 'make'
+          ./system\bin\bash.exe -lc 'make install'
 
       - name: Archive build
         run: Compress-Archive .\home\iperf3 iperf3-amd64-win.zip
