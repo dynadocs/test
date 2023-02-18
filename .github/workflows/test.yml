@@ -15,19 +15,8 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      
-    - run: git config --global core.autocrlf input
-
       - name: Checkout
         uses: actions/checkout@v3
-
-    - name: Install Cygwin
-      uses: ./
-      with:
-        platform: ${{ matrix.platform }}
-        packages: ${{ matrix.packages }}
-        add-to-path: false
-
 
       - name: Install cygwin tools
         run: .\cygwin-installer.cmd
