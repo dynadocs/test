@@ -54,7 +54,7 @@ jobs:
           prerelease: false
           artifacts: "${{ matrix.name }}-amd64-${{ matrix.filename }}win.zip"
           replacesArtifacts: true
-          tag: "${{ env.release_tag }}"
+          tag: ${{ env.release_tag }}
           name: ${{ matrix.name }} "${{ env.release_tag }}"
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
