@@ -1,4 +1,4 @@
-name: Build iperf3 x64 static via cygwin action
+name: Build iperf3 x64 static via cygwin-action
 on:
   workflow_dispatch:
 
@@ -13,6 +13,18 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        name: [iperf3]
+        build: [basic, openssl]
+        include:
+          - build: "basic"
+            filename: ""
+            openssl: "no"
+          - build: "openssl"
+            filename: "openssl-"
+            openssl: "yes"
 
     steps:
       - run: git config --global core.autocrlf input
@@ -20,31 +32,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install Cygwin
+      - name: Move packages_${{ matrix.build }}.cmd to packages.cmd
+        run: Copy-Item -Path packages_${{ matrix.build }}.cmd -Destination packages.cmd
+
+      - name: Install cygwin/cygwin-install-action
         uses: cygwin/cygwin-install-action@master
         with:
           platform: x86_64
           packages: automake,gcc-core,gcc-g++,git,libtool,make,libssl1.1,libssl-devel,openssl
 
-      - name: pwd
-        run: |
-          echo "bash path: $(pwd)"
-          echo "win path: ${{ github.workspace }}"
-        shell: C:\cygwin\bin\bash.exe '{0}'
-
       - name: Build script
         run: C:\cygwin\bin\bash.exe build.sh
 
       - name: Archive build
-        run: Compress-Archive "${{ github.workspace }}/iperf3" iperf3-amd64-win.zip
+        run: Compress-Archive ${{ matrix.name }} ${{ matrix.name }}-amd64-${{ matrix.filename }}win.zip
+
+      - name: Host - Bootstrap release tag
+        run: echo "release_tag=$(Get-Content -Path iperf3_version)" >> $GITHUB_ENV
 
       - name: "Create release"
         uses: ncipollo/release-action@v1
         with:
           prerelease: false
-          artifacts: "iperf3-amd64-win.zip"
+          artifacts: "${{ matrix.name }}-amd64-${{ matrix.filename }}win.zip"
           replacesArtifacts: true
-          tag: test_2
-          name: Iperf3
+          tag: "${{ env.release_tag }}"
+          name: ${{ matrix.name }} "${{ env.release_tag }}"
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
