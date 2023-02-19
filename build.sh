@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-HOME="${1}"
-
-pwd
+HOME="$(pwd)"
 
 git clone https://github.com/esnet/iperf.git "$HOME/iperf3_build"
 cd "$HOME/iperf3_build" || exit 1

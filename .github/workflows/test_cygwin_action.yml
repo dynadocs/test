@@ -33,7 +33,7 @@ jobs:
         shell: C:\cygwin\bin\bash.exe '{0}'
 
       - name: Build script
-        run: C:\cygwin\bin\bash.exe build.sh "$(pwd)"
+        run: C:\cygwin\bin\bash.exe build.sh
 
       - name: Archive build
         run: Compress-Archive "${{ github.workspace }}/iperf3" iperf3-amd64-win.zip
