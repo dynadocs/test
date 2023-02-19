@@ -25,7 +25,7 @@ jobs:
         run: |
           ./system\bin\bash.exe -lc 'git clone "https://github.com/esnet/iperf.git" "$HOME/iperf3_build"'
           ./system\bin\bash.exe -lc 'cd "$HOME/iperf3_build"; ./bootstrap.sh'
-          ./system\bin\bash.exe -lc 'cd "$HOME/iperf3_build"; ./configure --disable-shared --enable-static-bin --prefix=$HOME/iperf3'
+          ./system\bin\bash.exe -lc 'cd "$HOME/iperf3_build"; ./configure --disable-shared --enable-static --enable-static-bin --prefix=$HOME/iperf3'
           ./system\bin\bash.exe -lc 'cd "$HOME/iperf3_build"; make'
           ./system\bin\bash.exe -lc 'cd "$HOME/iperf3_build"; make install'
 
