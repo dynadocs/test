@@ -1,4 +1,4 @@
-name: Build iperf3 x64 static via cygwin64
+name: Build iperf3 x64 static via cygwin-cmd
 on:
   workflow_dispatch:
 
@@ -35,7 +35,7 @@ jobs:
       - name: Move packages_${{ matrix.build }}.cmd to packages.cmd
         run: Copy-Item -Path packages_${{ matrix.build }}.cmd -Destination packages.cmd
 
-      - name: Install cygwin tools
+      - name: Install cygwin-installer.cmd
         run: .\cygwin-installer.cmd
 
       - name: Build static
