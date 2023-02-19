@@ -15,8 +15,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - run: git config --global core.autocrlf input
-
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -44,7 +42,7 @@ jobs:
           prerelease: false
           artifacts: "iperf3-amd64-win.zip"
           replacesArtifacts: true
-          tag: test
+          tag: test_2
           name: Iperf3
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}

@@ -38,7 +38,7 @@ jobs:
           prerelease: false
           artifacts: "iperf3-amd64-win.zip"
           replacesArtifacts: true
-          tag: test
+          tag: test_1
           name: Iperf3
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
