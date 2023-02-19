@@ -38,7 +38,7 @@ set LFTP4WIN_USERNAME=IPERF3_BUILD
 set CYGWIN_PACKET_MANAGER=
 
 :: Select the packages to be installed automatically - required packages for LFTP4WIN:bsdtar,bash-completion,curl,lftp,ssh-pageant,openssh
-set CYGWIN_PACKAGES=automake,bsdtar,curl,gcc-core,gcc-g++,git,gnupg,libjansson-devel,libncurses-devel,libssl-devel,libtool,make,patch,pkg-config,openssl
+set CYGWIN_PACKAGES=automake,bsdtar,curl,gcc-core,gcc-g++,git,gnupg,libssl-devel,libtool,make
 
 :: Install the LFTP4WIN Skeleton files to use lftp via WinSCP and Conemu. Installs Conemu, kitty, WinSCP, notepad++ and makes a few minor modifications to the default cygin installation.
 set INSTALL_LFTP4WIN_CORE=no

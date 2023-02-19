@@ -47,8 +47,7 @@ jobs:
       - name: Build static
         run: |
           cd "$HOME/iperf3_build"
-          make
-          make install
+          make && make install
         shell: C:\cygwin\bin\bash.exe '{0}'
 
       - name: Archive build
