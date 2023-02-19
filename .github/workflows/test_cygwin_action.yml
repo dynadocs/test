@@ -24,7 +24,7 @@ jobs:
         uses: cygwin/cygwin-install-action@master
         with:
           platform: x86_64
-          packages: automake,bsdtar,curl,gcc-core,gcc-g++,git,gnupg,libjansson-devel,libncurses-devel,libssl-devel,libtool,make,patch,pkg-config,openssl
+          packages: automake,bsdtar,curl,gcc-core,gcc-g++,git,gnupg,libtool,make
 
       - name: Single-line inline shell
         run: |
