@@ -28,7 +28,7 @@ jobs:
 
       - name: pwd
         run: |
-          echo "bash path: $(pwd)""
+          echo "bash path: $(pwd)"
           echo "win path: ${{ github.workspace }}"
         shell: C:\cygwin\bin\bash.exe '{0}'
 
