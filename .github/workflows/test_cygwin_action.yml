@@ -24,7 +24,7 @@ jobs:
         uses: cygwin/cygwin-install-action@master
         with:
           platform: x86_64
-          packages: automake,gcc-core,gcc-g++,git,libtool,make
+          packages: automake,gcc-core,gcc-g++,git,libtool,make,libssl1.1,libssl-devel,openssl
 
       - name: pwd
         run: |
