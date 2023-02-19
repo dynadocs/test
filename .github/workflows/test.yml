@@ -13,6 +13,18 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        name: [iperf3]
+        build: [basic, openssl]
+        include:
+          - build: "basic"
+            filename: ""
+            openssl: "no"
+          - build: "openssl"
+            filename: "openssl-"
+            openssl: "yes"
 
     steps:
       - run: git config --global core.autocrlf input
@@ -25,18 +37,21 @@ jobs:
 
       - name: Build static
         run: |
-          .\system\bin\bash.exe -l build.sh
+          .\system\bin\bash.exe -l build.sh ${{ matrix.openssl }}
 
       - name: Archive build
-        run: Compress-Archive iperf3 iperf3-amd64-win.zip
+        run: Compress-Archive ${{ matrix.name }} ${{ matrix.name }}-amd64-${{ matrix.filename }}win.zip
+
+      - name: Host - Bootstrap release tag ${{ github.event.inputs.distinct_id }}
+        run: echo "release_tag=$(cat ${{ matrix.libtorrent_version }}/tag.md)" >> $GITHUB_ENV
 
       - name: "Create release"
         uses: ncipollo/release-action@v1
         with:
           prerelease: false
-          artifacts: "iperf3-amd64-win.zip"
+          artifacts: "${{ matrix.name }}-amd64-${{ matrix.filename }}win.zip"
           replacesArtifacts: true
-          tag: test_1
-          name: Iperf3
+          tag: "${{ env.release_tag }}"
+          name: ${{ matrix.name }} "${{ env.release_tag }}"
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
