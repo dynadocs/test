@@ -1,17 +1,46 @@
 #!/usr/bin/env bash
 
+# The matrix will pass this as yes or no to the build script - defaults to no but the build will fail if you have libssl-devel installed.
+with_openssl="${1:-no}"
+printf '\n%b\n' " \e[93m\U25cf\e[0m Building with openssl = ${with_openssl}"
 HOME="$(pwd)"
 
+printf '\n%b\n\n' " \e[94m\U25cf\e[0m Cloning iperf3 git repo"
+
 [[ -d "$HOME/iperf3_build" ]] && rm -rf "$HOME/iperf3_build"
-git clone https://github.com/esnet/iperf.git "$HOME/iperf3_build"
+git clone "https://github.com/esnet/iperf.git" "$HOME/iperf3_build"
 cd "$HOME/iperf3_build" || exit 1
 
-./bootstrap.sh
-./configure --with-openssl=/usr --disable-shared --enable-static-bin --prefix="$HOME/iperf3"
+printf '\n%b\n\n' " \e[94m\U25cf\e[0m Bootstrapping iperf3"
 
+./bootstrap.sh
+
+printf '\n%b\n\n' " \e[94m\U25cf\e[0m Configuring iperf3"
+
+if [[ "${with_openssl}" = 'yes' ]]; then
+	# fix openssl linking - We want this sed replace using a literal match
+	# shellcheck disable=SC2016
+	sed -ri 's|OPENSSL_LIBS="-lssl -lcrypto"|OPENSSL_LIBS="${OPENSSL_LIBS}"|g' "$HOME/iperf3_build/configure"
+	./configure --with-openssl=/usr OPENSSL_LIBS="-l:libssl.dll.a -l:libcrypto.dll.a" --disable-shared --enable-static-bin --prefix="$HOME/iperf3"
+else
+	./configure --disable-shared --enable-static-bin --prefix="$HOME/iperf3"
+fi
+
+printf '\n%b\n\n' " \e[94m\U25cf\e[0m make"
 make
 
+printf '\n%b\n\n' " \e[94m\U25cf\e[0m make install"
 [[ -d "$HOME/iperf3" ]] && rm -rf "$HOME/iperf3"
 make install
 
-[[ -d "$HOME/iperf3/bin" ]] && cp -f "$HOME/system/bin/cygwin1.dll" "$HOME/iperf3/bin"
+printf '\n%b\n\n' " \e[94m\U25cf\e[0m Copy dll dependencies"
+# default requirements
+if [[ -d "$HOME/iperf3/bin" ]]; then
+	cp -f "$HOME/system/bin/cygwin1.dll" "$HOME/iperf3/bin"
+
+	if [[ "${with_openssl}" == 'yes' ]]; then
+		# openssl requirements
+		cp -f "$HOME/system/bin/cygcrypto-1.1.dll" "$HOME/iperf3/bin"
+		cp -f "$HOME/system/bin/cygz.dll" "$HOME/iperf3/bin"
+	fi
+fi
