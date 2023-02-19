@@ -26,29 +26,8 @@ jobs:
           platform: x86_64
           packages: automake,gcc-core,gcc-g++,git,libtool,make
 
-      - name: Single-line inline shell
-        run: |
-          echo "Running in $(pwd)"
-          echo "HOME is $HOME"
-        shell: C:\cygwin\bin\bash.exe '{0}'
-
-      - name: Clone iperf3
-        run: git clone "https://github.com/esnet/iperf.git" "$HOME/iperf3_build"
-        shell: C:\cygwin\bin\bash.exe '{0}'
-
-      - name: Configure static
-        run: >-
-          cd "$HOME/iperf3_build"
-          ./bootstrap.sh
-          ./configure --disable-shared --enable-static-bin --prefix="$HOME/iperf3"
-        shell: C:\cygwin\bin\bash.exe '{0}'
-
-      - name: Build static
-        run: >-
-          cd "$HOME/iperf3_build"
-          make
-          make install
-        shell: C:\cygwin\bin\bash.exe '{0}'
+      - name: Build script
+        run: C:\cygwin\bin\bash.exe build.sh
 
       - name: Archive build
         run: Compress-Archive iperf3 iperf3-amd64-win.zip
