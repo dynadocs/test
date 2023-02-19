@@ -32,8 +32,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Move packages_${{ matrix.openssl }}.cmd to packages.cmd
-        run: Copy-Item -Path packages_${{ matrix.openssl }}.cmd -Destination packages.cmd
+      - name: Move packages_${{ matrix.build }}.cmd to packages.cmd
+        run: Copy-Item -Path packages_${{ matrix.build }}.cmd -Destination packages.cmd
 
       - name: Install cygwin tools
         run: .\cygwin-installer.cmd
