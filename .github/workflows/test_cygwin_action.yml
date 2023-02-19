@@ -34,7 +34,7 @@ jobs:
 
       - name: Build static
         run: |
-          git clone "https://github.com/esnet/iperf.git" "$HOME/iperf3_build"'
+          git clone "https://github.com/esnet/iperf.git" "$HOME/iperf3_build"
           cd "$HOME/iperf3_build"
           ./bootstrap.sh
           ./configure --disable-shared --enable-static-bin --prefix=$HOME/iperf3
@@ -43,7 +43,7 @@ jobs:
         shell: C:\cygwin\bin\bash.exe '{0}'
 
       - name: Archive build
-        run: Compress-Archive .\home\iperf3 iperf3-amd64-win.zip
+        run: Compress-Archive iperf3 iperf3-amd64-win.zip
 
       - name: "Create release"
         uses: ncipollo/release-action@v1
