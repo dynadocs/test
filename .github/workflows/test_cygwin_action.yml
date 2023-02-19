@@ -26,6 +26,11 @@ jobs:
           platform: x86_64
           packages: automake,gcc-core,gcc-g++,git,libtool,make
 
+      - name: pwd
+        run: |
+          echo "Running in $(pwd)"
+        shell: C:\cygwin\bin\bash.exe '{0}'
+
       - name: Build script
         run: C:\cygwin\bin\bash.exe build.sh
 
