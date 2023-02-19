@@ -36,7 +36,7 @@ jobs:
         run: C:\cygwin\bin\bash.exe build.sh "$(pwd)"
 
       - name: Archive build
-        run: Compress-Archive ${{ github.workspace }/iperf3 iperf3-amd64-win.zip
+        run: Compress-Archive "${{ github.workspace }}/iperf3" iperf3-amd64-win.zip
 
       - name: "Create release"
         uses: ncipollo/release-action@v1
