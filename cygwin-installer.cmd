@@ -377,7 +377,6 @@ if "%INSTALL_LFTP4WIN_CORE%" == "yes" (
   RMDIR /S /Q "%LFTP4WIN_BASE%\docs"
 )
 
-timeout /T 60
 goto :eof
 
 :fail
@@ -390,7 +389,6 @@ goto :eof
   echo # Installing [LFTP4WIN Portable] FAILED!
   echo ###########################################################
   echo.
-  timeout /T 60
   exit /B %exit_code%
 
 :download
