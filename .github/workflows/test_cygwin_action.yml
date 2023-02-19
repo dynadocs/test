@@ -40,7 +40,7 @@ jobs:
       - name: Configure static
         run: |
           cd "$HOME/iperf3_build"
-          ./bootstrap.sh"
+          ./bootstrap.sh
           ./configure --disable-shared --enable-static-bin --prefix="$HOME/iperf3"
         shell: C:\cygwin\bin\bash.exe '{0}'
 
