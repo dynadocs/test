@@ -45,8 +45,9 @@ set LFTP4WIN_USERNAME=IPERF3_BUILD
 :: Show the packet manager if you need to specify a program version during installation instead of using the current release (default), like openssh 7.9 instead of 8.0 for Lftp.
 set CYGWIN_PACKET_MANAGER=
 
-:: Select the packages to be installed automatically - required packages for LFTP4WIN:bsdtar,bash-completion,curl,lftp,ssh-pageant,openssh
-set CYGWIN_PACKAGES=automake,bsdtar,curl,gcc-core,gcc-g++,git,gnupg,libtool,make
+:: Packages are loaded from the packages_basic.cmd and packages_openssl.cmd. The action matrix copies the one it needs to packages.cmd
+echo Loading package dependencies from packages.cmd
+call "packages.cmd"
 
 :: Install the LFTP4WIN Skeleton files to use lftp via WinSCP and Conemu. Installs Conemu, kitty, WinSCP, notepad++ and makes a few minor modifications to the default cygin installation.
 set INSTALL_LFTP4WIN_CORE=no
