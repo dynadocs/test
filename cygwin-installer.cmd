@@ -206,7 +206,6 @@ echo ###########################################################
 echo # Installing [LFTP4WIN Portable] succeeded.
 echo ###########################################################
 echo.
-echo Use [%Start_cmd%] to launch LFTP4WIN Portable.
 
 del /q "%INSTALL_TEMP%\%CYGWIN_SETUP_EXE%" "%LFTP4WIN_ROOT%\Cygwin.bat" "%LFTP4WIN_ROOT%\Cygwin.ico" "%LFTP4WIN_ROOT%\Cygwin-Terminal.ico"
 
