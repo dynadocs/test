@@ -45,7 +45,7 @@ jobs:
       - name: Archive build
         run: Compress-Archive ${{ matrix.name }} ${{ matrix.name }}-amd64-${{ matrix.filename }}win.zip
 
-      - name: Host - Bootstrap release tag ${{ github.event.inputs.distinct_id }}
+      - name: Host - Bootstrap release tag
         run: echo "release_tag=$(Get-Content -Path iperf3_version)" >> $GITHUB_ENV
 
       - name: "Create release"
