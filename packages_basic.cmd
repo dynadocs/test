@@ -1,1 +1,1 @@
-set CYGWIN_PACKAGES=automake,gcc-core,gcc-g++,git,libtool,make,pkg-config
+automake,gcc-core,gcc-g++,git,libtool,make,pkg-config
