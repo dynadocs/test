@@ -1,0 +1,21 @@
+name: check for new releases iperf3
+
+on:
+  workflow_dispatch:
+
+jobs:
+  readme:
+    runs-on: ubuntu-latest
+    outputs:
+      readme: ${{ steps.readme.outputs.readme }}
+    steps:
+      - name: test
+        id: readme
+        run: echo "readme='[1,2,3,4,5]'" >> $GITHUB_OUTPUT
+
+  runme:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        name: ${{ needs.readme.outputs.readme }}
