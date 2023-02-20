@@ -80,7 +80,9 @@ jobs:
         run: echo "binary_path=$(echo ${{ github.workspace }}/bin/${{ matrix.name }}-${{ matrix.arch }})" >> $GITHUB_ENV
 
       - name: Create tag env
-        run: echo "release_tag=$(sed -rn 's|(.*)\[(.*)],\[https://github.com/esnet/iperf],(.*)|\2|p' ${{ matrix.name }}/configure.ac > "$HOME/iperf3_version")" >> $GITHUB_ENV
+        run: |
+          sed -rn 's|(.*)\[(.*)],\[https://github.com/esnet/iperf],(.*)|\2|p' ${{ matrix.name }}/configure.ac > "$HOME/iperf3_version"
+          echo "release_tag=$(sed -rn 's|(.*)\[(.*)],\[https://github.com/esnet/iperf],(.*)|\2|p' ${{ matrix.name }}/configure.ac > "$HOME/iperf3_version")" >> $GITHUB_ENV
 
       - name: "Create release"
         uses: ncipollo/release-action@v1
