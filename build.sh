@@ -37,13 +37,21 @@ printf '\n%b\n\n' " \e[94m\U25cf\e[0m make install"
 make install
 
 printf '\n%b\n\n' " \e[94m\U25cf\e[0m Copy dll dependencies"
-# default requirements
+
 if [[ -d "$HOME/iperf3/bin" ]]; then
-	cp -f "$HOME/system/bin/cygwin1.dll" "$HOME/iperf3/bin"
+	# default requirements
+	# cmd
+	[[ -f "$HOME/system/bin/cygwin1.dll" ]] && cp -f "$HOME/system/bin/cygwin1.dll" "$HOME/iperf3/bin"
+	# action
+	[[ -f "/cygdrive/c/cygwin/system/bin/cygwin1.dll" ]] && cp -f "/cygdrive/c/cygwin/system/bin/cygwin1.dll" "$HOME/iperf3/bin"
 
 	if [[ "${with_openssl}" == 'yes' ]]; then
 		# openssl requirements
-		cp -f "$HOME/system/bin/cygcrypto-1.1.dll" "$HOME/iperf3/bin"
-		cp -f "$HOME/system/bin/cygz.dll" "$HOME/iperf3/bin"
+		# cmd
+		[[ -f "$HOME/system/bin/cygcrypto-1.1.dll" ]] && cp -f "$HOME/system/bin/cygcrypto-1.1.dll" "$HOME/iperf3/bin"
+		[[ -f "$HOME/system/bin/cygz.dll" ]] && cp -f "$HOME/system/bin/cygz.dll" "$HOME/iperf3/bin"
+		# action
+		[[ -f "/cygdrive/c/cygwin/system/bin/cygcrypto-1.1.dll" ]] && cp -f "/cygdrive/c/cygwin/system/bin/cygcrypto-1.1.dll" "$HOME/iperf3/bin"
+		[[ -f "/cygdrive/c/cygwin/system/bin/cygz.dll" ]] && cp -f "/cygdrive/c/cygwin/system/bin/cygz.dll" "$HOME/iperf3/bin"
 	fi
 fi
