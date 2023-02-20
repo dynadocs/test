@@ -1,4 +1,4 @@
-name: check for new releases iperf3
+name: fml
 
 on:
   workflow_dispatch:
