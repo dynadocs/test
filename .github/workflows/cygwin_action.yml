@@ -45,7 +45,7 @@ jobs:
           packages: ${{ env.packages_list }}
 
       - name: Build script
-        run: C:\cygwin\bin\bash.exe build.sh
+        run: C:\cygwin\bin\bash.exe build.sh ${{ matrix.openssl }}
 
       - name: Archive build
         run: Compress-Archive ${{ github.workspace }}\${{ matrix.name }} ${{ matrix.name }}-amd64-${{ matrix.filename }}win.zip
