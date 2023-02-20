@@ -47,7 +47,7 @@ set CYGWIN_PACKET_MANAGER=
 
 :: Packages are loaded from the packages_basic.cmd and packages_openssl.cmd. The action matrix copies the one it needs to packages.cmd
 echo Loading package dependencies from packages.cmd
-call "packages.cmd"
+set /p CYGWIN_PACKAGES=<packages.cmd
 
 :: Install the LFTP4WIN Skeleton files to use lftp via WinSCP and Conemu. Installs Conemu, kitty, WinSCP, notepad++ and makes a few minor modifications to the default cygin installation.
 set INSTALL_LFTP4WIN_CORE=no
