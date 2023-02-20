@@ -185,7 +185,7 @@ echo.
   echo unset HISTFILE
   echo.
   echo rm -f /etc/{passwd,group}
-  echo sed -ri "s@# db_home: (.*)@db_home: ${HOME%%/*}@" /etc/nsswitch.conf
+  echo sed -ri "s@# db_home: (.*)@db_home: ${HOME}@" /etc/nsswitch.conf
   echo.
   echo ## Adjust the Cygwin packages cache path
   echo.
