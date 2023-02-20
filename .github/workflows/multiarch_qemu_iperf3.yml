@@ -1,8 +1,14 @@
 name: iperf3 qemu multiarch
+
 on:
-  push:
-  pull_request:
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: write-all
+
 jobs:
   build:
     runs-on: ubuntu-latest
