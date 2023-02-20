@@ -17,6 +17,7 @@ jobs:
       matrix:
         name: [iperf3]
         build: [basic, openssl]
+        arch: [amd64]
         include:
           - build: "basic"
             filename: ""
@@ -24,6 +25,8 @@ jobs:
           - build: "openssl"
             filename: "openssl-"
             openssl: "yes"
+
+    name: ${{ matrix.name }}-${ matrix.arch }}-${{ matrix.filename }}win.zip
 
     steps:
       - run: git config --global core.autocrlf input
