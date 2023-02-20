@@ -62,7 +62,7 @@ jobs:
 
           for iray in "${!upstream_iperf3_tag[@]}"; do
             if [[ "$(ver "${upstream_iperf3_tag[$iray]}")" -gt "$(ver "${local_iperf3_tag[$iray]}")" ]]; then
-              printf "%-14s latest:%-10s qbt-workflow-files:%-10s %s\n" "$iray" "${upstream_iperf3_tag[$iray]}" "${local_iperf3_tag[$iray]}" "< New version available - workflow will be triggered"
+              printf "%-14s latest:%-10s iperf3-static:%-10s %s\n" "$iray" "${upstream_iperf3_tag[$iray]}" "${local_iperf3_tag[$iray]}" "< New version available - workflow will be triggered"
               echo "continue_build=yes" >> $GITHUB_ENV
             else
               printf "%-14s latest:%-10s iperf3-static:%-10s\n" "$iray" "${upstream_iperf3_tag[$iray]}" "${local_iperf3_tag[$iray]}"
@@ -79,7 +79,7 @@ jobs:
           repo: "userdocs/test"
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Await local workflow - qbt download and release reusable files for workflows
+      - name: Await local workflow - cygwin cmd
         if: env.continue_build == 'yes'
         uses: codex-/await-local-workflow-run@v1
         with:
