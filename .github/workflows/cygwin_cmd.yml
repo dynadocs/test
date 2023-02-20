@@ -12,9 +12,7 @@ permissions:
 
 jobs:
   skip_duplicate_job:
-    # continue-on-error: true # Uncomment once integration is finished
     runs-on: ubuntu-latest
-    # Map a step output to a job output
     outputs:
       should_skip: ${{ steps.skip_check.outputs.should_skip }}
     steps:
@@ -27,9 +25,10 @@ jobs:
           do_not_skip: ""
 
   check_release:
-    # continue-on-error: true # Uncomment once integration is finished
     runs-on: ubuntu-latest
     needs: skip_duplicate_job
+    outputs:
+      continue_build: ${{ steps.continue_build.outputs.continue_build }}
     steps:
       - name: Get latest esnet/iperf tag
         run: |
@@ -46,6 +45,7 @@ jobs:
           LOCAL_IPERF3_TAG
 
       - name: Test values - latest upstream vs local tags
+        id: continue_build
         run: |
           source upstream_iperf3_tag.sh
           source local_iperf3_tag.sh
@@ -59,14 +59,16 @@ jobs:
           for iray in "${!upstream_iperf3_tag[@]}"; do
             if [[ "$(ver "${upstream_iperf3_tag[$iray]}")" -gt "$(ver "${local_iperf3_tag[$iray]}")" ]]; then
               printf "%-14s latest:%-10s qbt-workflow-files:%-10s %s\n" "$iray" "${upstream_iperf3_tag[$iray]}" "${local_iperf3_tag[$iray]}" "< New version available - workflow will be triggered"
-              echo "trigger_files_workflow=yes" >> $GITHUB_ENV
+              echo "continue_build=yes" >> $GITHUB_ENV
             else
-              printf "%-14s latest:%-10s qbt-workflow-files:%-10s\n" "$iray" "${upstream_iperf3_tag[$iray]}" "${local_iperf3_tag[$iray]}"
-              exit
+              printf "%-14s latest:%-10s iperf3-static:%-10s\n" "$iray" "${upstream_iperf3_tag[$iray]}" "${local_iperf3_tag[$iray]}"
             fi
           done
 
+          echo "continue_build=${{ env.continue_build }}" >> $GITHUB_OUTPUT
+
   build:
+    if: needs.check_release.outputs.check_release == 'yes'
     runs-on: windows-latest
     needs: check_release
     strategy:
