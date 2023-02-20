@@ -36,6 +36,8 @@ printf '\n%b\n\n' " \e[94m\U25cf\e[0m make install"
 [[ -d "$HOME/iperf3" ]] && rm -rf "$HOME/iperf3"
 make install
 
+set -x
+
 printf '\n%b\n\n' " \e[94m\U25cf\e[0m Copy dll dependencies"
 
 if [[ -d "$HOME/iperf3/bin" ]]; then
