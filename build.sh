@@ -5,13 +5,13 @@ with_openssl="${1:-no}"
 cygwin_path="${2:-${HOME}}/cygwin"
 
 printf '\n%b\n' " \e[93m\U25cf\e[0m With openssl = ${with_openssl}"
-printf '\n%b\n' " \e[93m\U25cf\e[0m Build path = ${HOME}"
-printf '\n%b\n\n' " \e[93m\U25cf\e[0m Cygwin path = ${cygwin_path}"
+printf '%b\n' " \e[93m\U25cf\e[0m Build path = ${HOME}"
+printf '%b\n' " \e[93m\U25cf\e[0m Cygwin path = ${cygwin_path}"
 
 if [[ "${with_openssl}" == 'yes' ]]; then
 	printf '\n%b\n' " \e[94m\U25cf\e[0m Downloading zlib"
 	curl -sL https://github.com/userdocs/qbt-workflow-files/releases/latest/download/zlib.tar.xz -o "${HOME}/zlib.tar.gz"
-	printf '%b\n\n' " \e[94m\U25cf\e[0m Extracting zlib"
+	printf '\n%b\n' " \e[94m\U25cf\e[0m Extracting zlib"
 	tar xf "${HOME}/zlib.tar.gz" -C "${HOME}"
 	cd "${HOME}/zlib" || exit 1
 	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Configuring zlib"
@@ -19,10 +19,10 @@ if [[ "${with_openssl}" == 'yes' ]]; then
 	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Building with zlib"
 	make -j"$(nproc)"
 	make install
-	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Building with openssl"
+	printf '\n%b\n' " \e[94m\U25cf\e[0m Building with openssl"
 	printf '\n%b\n' " \e[94m\U25cf\e[0m Downloading openssl"
 	curl -sL "https://github.com/userdocs/qbt-workflow-files/releases/latest/download/openssl.tar.xz" -o "${HOME}/openssl.tar.xz"
-	printf '%b\n\n' " \e[94m\U25cf\e[0m Extracting openssl"
+	printf '\n%b\n' " \e[94m\U25cf\e[0m Extracting openssl"
 	tar xf "${HOME}/openssl.tar.xz" -C "${HOME}"
 	cd "${HOME}/openssl" || exit 1
 	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Building openssl"
@@ -54,9 +54,8 @@ printf '\n%b\n\n' " \e[94m\U25cf\e[0m make install"
 [[ -d "$HOME/iperf3" ]] && rm -rf "$HOME/iperf3"
 make install
 
-printf '\n%b\n\n' " \e[94m\U25cf\e[0m Copy dll dependencies"
-
 if [[ -d "$HOME/iperf3/bin" ]]; then
+	printf '\n%b\n' " \e[94m\U25cf\e[0m Copy dll dependencies"
 	[[ -f "${cygwin_path}/bin/cygwin1.dll" ]] && cp -f "${cygwin_path}/bin/cygwin1.dll" "$HOME/iperf3/bin"
-	printf '\n%b\n\n' " \e[92m\U25cf\e[0m Copied the dll dependencies"
+	printf '\n%b\n' " \e[92m\U25cf\e[0m Copied the dll dependencies"
 fi
