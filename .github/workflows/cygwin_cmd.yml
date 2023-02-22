@@ -29,12 +29,14 @@ jobs:
     name: ${{ matrix.name }}-${{ matrix.arch }}-${{ matrix.filename }}win.zip
 
     env:
-      cygwin_path: /cygdrive/d/cygwin/bin
+      cygwin_path: /cygdrive/d/a/${{ github.workspace }}/cygwin/bin
 
     steps:
       - run: git config --global core.autocrlf input
 
-      - run: pwd
+      - run: |
+          pwd
+          echo ${{ env.cygwin_path }}
 
       - name: Checkout
         uses: actions/checkout@v3
