@@ -11,7 +11,7 @@ printf '\n%b\n\n' " \e[93m\U25cf\e[0m Cygwin path = ${cygwin_path}"
 if [[ "${with_openssl}" == 'yes' ]]; then
 	printf '\n%b\n' " \e[94m\U25cf\e[0m Downloading zlib"
 	curl -sL https://github.com/userdocs/qbt-workflow-files/releases/latest/download/zlib.tar.xz -o zlib.tar.gz
-	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Extracting zlib"
+	printf '%b\n\n' " \e[94m\U25cf\e[0m Extracting zlib"
 	tar xf zlib.tar.gz
 	cd "${HOME}/zlib" || exit 1
 	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Configuring zlib"
@@ -22,7 +22,7 @@ if [[ "${with_openssl}" == 'yes' ]]; then
 	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Building with openssl"
 	printf '\n%b\n' " \e[94m\U25cf\e[0m Downloading openssl"
 	curl -sL "https://github.com/userdocs/qbt-workflow-files/releases/latest/download/openssl.tar.xz" -o openssl.tar.xz
-	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Extracting openssl"
+	printf '%b\n\n' " \e[94m\U25cf\e[0m Extracting openssl"
 	tar xf openssl.tar.xz
 	cd "${HOME}/openssl" || exit 1
 	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Building openssl"
