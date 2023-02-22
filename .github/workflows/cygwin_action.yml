@@ -29,7 +29,7 @@ jobs:
     name: ${{ matrix.name }}-${{ matrix.arch }}-${{ matrix.filename }}win.zip
 
     env:
-      cygwin_path: "/cygdrive/c/cygwin/bin"
+      cygwin_path: "/cygdrive/c"
 
     steps:
       - run: git config --global core.autocrlf input
