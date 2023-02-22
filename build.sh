@@ -2,7 +2,7 @@
 
 HOME="$(pwd)"
 with_openssl="${1:-no}"
-cygwin_path="${2:-${HOME}}"
+cygwin_path="${2:-${HOME}}/cygwin/bin"
 
 printf '\n%b\n' " \e[93m\U25cf\e[0m With openssl = ${with_openssl}"
 printf '\n%b\n' " \e[93m\U25cf\e[0m Build path = ${HOME}"
