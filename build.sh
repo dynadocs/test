@@ -2,7 +2,7 @@
 
 HOME="$(pwd)"
 with_openssl="${1:-no}"
-cygwin_path="${2:-${HOME}}/cygwin/bin"
+cygwin_path="${2:-${HOME}}/cygwin"
 
 printf '\n%b\n' " \e[93m\U25cf\e[0m With openssl = ${with_openssl}"
 printf '\n%b\n' " \e[93m\U25cf\e[0m Build path = ${HOME}"
@@ -57,6 +57,6 @@ make install
 printf '\n%b\n\n' " \e[94m\U25cf\e[0m Copy dll dependencies"
 
 if [[ -d "$HOME/iperf3/bin" ]]; then
-	[[ -f "${cygwin_path}/cygwin1.dll" ]] && cp -f "${cygwin_path}/cygwin1.dll" "$HOME/iperf3/bin"
+	[[ -f "${cygwin_path}/bin/cygwin1.dll" ]] && cp -f "${cygwin_path}/bin/cygwin1.dll" "$HOME/iperf3/bin"
 	printf '\n%b\n\n' " \e[92m\U25cf\e[0m Copied the dll dependencies"
 fi
