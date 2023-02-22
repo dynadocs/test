@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 with_openssl="${1:-no}"
+cygwin_path="${2}"
 HOME="$(pwd)"
 
 if [[ "${with_openssl}" == 'yes' ]]; then
@@ -10,7 +11,7 @@ if [[ "${with_openssl}" == 'yes' ]]; then
 	tar xf zlib.tar.gz
 	cd "${HOME}/zlib" || exit 1
 	printf '\n%b\n' " \e[93m\U25cf\e[0m Configuring zlib"
-	./configure --prefix="${HOME}/cygwin" --static --zlib-compat
+	./configure --prefix="${cygwin_path}" --static --zlib-compat
 	printf '\n%b\n' " \e[93m\U25cf\e[0m Building with zlib"
 	make -j"$(nproc)"
 	make install
@@ -21,7 +22,7 @@ if [[ "${with_openssl}" == 'yes' ]]; then
 	tar xf openssl.tar.xz
 	cd "${HOME}/openssl" || exit 1
 	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Building openssl"
-	./config --prefix="${HOME}/cygwin" threads no-shared no-dso no-comp
+	./config --prefix="${cygwin_path}" threads no-shared no-dso no-comp
 	make -j"$(nproc)"
 	make install_sw
 fi
@@ -52,9 +53,6 @@ make install
 printf '\n%b\n\n' " \e[94m\U25cf\e[0m Copy dll dependencies"
 
 if [[ -d "$HOME/iperf3/bin" ]]; then
-	# cmd
-	[[ -f "$HOME/cygwin/bin/cygwin1.dll" ]] && cp -f "$HOME/cygwin/bin/cygwin1.dll" "$HOME/iperf3/bin"
-	# action
-	[[ -f "/cygdrive/c/cygwin/bin/cygwin1.dll" ]] && cp -f "/cygdrive/c/cygwin/bin/cygwin1.dll" "$HOME/iperf3/bin"
+	[[ -f "${cygwin_path}/cygwin1.dll" ]] && cp -f "${cygwin_path}/cygwin1.dll" "$HOME/iperf3/bin"
 	printf '\n%b\n\n' " \e[92m\U25cf\e[0m Copied the dll dependencies"
 fi
