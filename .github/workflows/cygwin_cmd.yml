@@ -34,8 +34,6 @@ jobs:
     steps:
       - run: git config --global core.autocrlf input
 
-      - run: echo ${{ env.cygwin_path }}
-
       - name: Checkout
         uses: actions/checkout@v3
 
