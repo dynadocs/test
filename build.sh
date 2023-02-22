@@ -5,21 +5,21 @@ HOME="$(pwd)"
 
 if [[ "${with_openssl}" == 'yes' ]]; then
 	printf '\n%b\n' " \e[93m\U25cf\e[0m Downloading zlib"
-	curl -sL https://github.com/madler/zlib/releases/download/v1.2.13/zlib-1.2.13.tar.gz >zlib.tar.gz
+	curl -sL https://github.com/userdocs/qbt-workflow-files/releases/latest/download/zlib.tar.xz -o zlib.tar.gz
 	printf '\n%b\n' " \e[93m\U25cf\e[0m Extracting zlib"
 	tar xf zlib.tar.gz
-	cd "${HOME}/zlib-1.2.13" || exit 1
+	cd "${HOME}/zlib" || exit 1
 	printf '\n%b\n' " \e[93m\U25cf\e[0m Configuring zlib"
-	./configure --prefix="${HOME}/cygwin" --static
+	./configure --prefix="${HOME}/cygwin" --static --zlib-compat
 	printf '\n%b\n' " \e[93m\U25cf\e[0m Building with zlib"
 	make -j"$(nproc)"
 	make install
 	printf '\n%b\n' " \e[93m\U25cf\e[0m Building with openssl"
 	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Downloading openssl"
-	curl -L "https://github.com/userdocs/qbt-workflow-files/releases/latest/download/openssl.tar.xz" >openssl.tar.xz
+	curl -sL "https://github.com/userdocs/qbt-workflow-files/releases/latest/download/openssl.tar.xz" -o openssl.tar.xz
 	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Extracting openssl"
 	tar xf openssl.tar.xz
-	cd $"{HOME}/openssl" || exit 1
+	cd "${HOME}/openssl" || exit 1
 	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Building openssl"
 	./config --prefix="${HOME}/cygwin" threads no-shared no-dso no-comp
 	make -j"$(nproc)"
@@ -52,11 +52,9 @@ make install
 printf '\n%b\n\n' " \e[94m\U25cf\e[0m Copy dll dependencies"
 
 if [[ -d "$HOME/iperf3/bin" ]]; then
-	# default requirements
 	# cmd
 	[[ -f "$HOME/cygwin/bin/cygwin1.dll" ]] && cp -f "$HOME/cygwin/bin/cygwin1.dll" "$HOME/iperf3/bin"
 	# action
 	[[ -f "/cygdrive/c/cygwin/bin/cygwin1.dll" ]] && cp -f "/cygdrive/c/cygwin/bin/cygwin1.dll" "$HOME/iperf3/bin"
-
 	printf '\n%b\n\n' " \e[92m\U25cf\e[0m Copied the dll dependencies"
 fi
