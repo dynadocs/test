@@ -4,19 +4,22 @@ with_openssl="${1:-no}"
 cygwin_path="$(cygpath -u "${2}")"
 HOME="$(pwd)"
 
+printf '\n%b\n\n' " \e[93m\U25cf\e[0m Build path = ${HOME}"
+printf '\n%b\n\n' " \e[93m\U25cf\e[0m cygwin path = ${cygwin_path}"
+
 if [[ "${with_openssl}" == 'yes' ]]; then
-	printf '\n%b\n' " \e[93m\U25cf\e[0m Downloading zlib"
+	printf '\n%b\n' " \e[94m\U25cf\e[0m Downloading zlib"
 	curl -sL https://github.com/userdocs/qbt-workflow-files/releases/latest/download/zlib.tar.xz -o zlib.tar.gz
-	printf '\n%b\n' " \e[93m\U25cf\e[0m Extracting zlib"
+	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Extracting zlib"
 	tar xf zlib.tar.gz
 	cd "${HOME}/zlib" || exit 1
-	printf '\n%b\n' " \e[93m\U25cf\e[0m Configuring zlib"
+	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Configuring zlib"
 	./configure --prefix="${cygwin_path}" --static --zlib-compat
-	printf '\n%b\n' " \e[93m\U25cf\e[0m Building with zlib"
+	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Building with zlib"
 	make -j"$(nproc)"
 	make install
-	printf '\n%b\n' " \e[93m\U25cf\e[0m Building with openssl"
-	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Downloading openssl"
+	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Building with openssl"
+	printf '\n%b\n' " \e[94m\U25cf\e[0m Downloading openssl"
 	curl -sL "https://github.com/userdocs/qbt-workflow-files/releases/latest/download/openssl.tar.xz" -o openssl.tar.xz
 	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Extracting openssl"
 	tar xf openssl.tar.xz
