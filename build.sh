@@ -4,8 +4,9 @@ with_openssl="${1:-no}"
 cygwin_path="$(cygpath -u "${2}")"
 HOME="$(pwd)"
 
-printf '\n%b\n\n' " \e[93m\U25cf\e[0m Build path = ${HOME}"
-printf '\n%b\n\n' " \e[93m\U25cf\e[0m cygwin path = ${cygwin_path}"
+printf '\n%b\n' " \e[93m\U25cf\e[0m With openssl = ${with_openssl}"
+printf '\n%b\n' " \e[93m\U25cf\e[0m Build path = ${HOME}"
+printf '\n%b\n\n' " \e[93m\U25cf\e[0m Cygwin path = ${cygwin_path}"
 
 if [[ "${with_openssl}" == 'yes' ]]; then
 	printf '\n%b\n' " \e[94m\U25cf\e[0m Downloading zlib"
