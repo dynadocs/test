@@ -34,9 +34,7 @@ jobs:
     steps:
       - run: git config --global core.autocrlf input
 
-      - run: |
-          pwd
-          echo ${{ env.cygwin_path }}
+      - run: echo ${{ env.cygwin_path }}
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -46,7 +44,7 @@ jobs:
 
       - name: Build static
         run: |
-          .\cygwin\bin\bash.exe -l build.sh ${{ matrix.openssl }} ${{ env.cygwin_path }}
+          .\cygwin\bin\bash.exe -l build.sh "${{ matrix.openssl }}" "${{ env.cygwin_path }}"
 
       - name: Archive build
         run: Compress-Archive ${{ matrix.name }} ${{ matrix.name }}-amd64-${{ matrix.filename }}win.zip

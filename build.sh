@@ -12,7 +12,7 @@ if [[ "${with_openssl}" == 'yes' ]]; then
 	printf '\n%b\n' " \e[94m\U25cf\e[0m Downloading zlib"
 	curl -sL https://github.com/userdocs/qbt-workflow-files/releases/latest/download/zlib.tar.xz -o "${HOME}/zlib.tar.gz"
 	printf '%b\n\n' " \e[94m\U25cf\e[0m Extracting zlib"
-	tar xf zlib.tar.gz
+	tar xf "${HOME}/zlib.tar.gz" -C "${HOME}"
 	cd "${HOME}/zlib" || exit 1
 	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Configuring zlib"
 	./configure --prefix="${cygwin_path}" --static --zlib-compat
@@ -23,7 +23,7 @@ if [[ "${with_openssl}" == 'yes' ]]; then
 	printf '\n%b\n' " \e[94m\U25cf\e[0m Downloading openssl"
 	curl -sL "https://github.com/userdocs/qbt-workflow-files/releases/latest/download/openssl.tar.xz" -o "${HOME}/openssl.tar.xz"
 	printf '%b\n\n' " \e[94m\U25cf\e[0m Extracting openssl"
-	tar xf openssl.tar.xz
+	tar xf "${HOME}/openssl.tar.xz" -C "${HOME}"
 	cd "${HOME}/openssl" || exit 1
 	printf '\n%b\n\n' " \e[94m\U25cf\e[0m Building openssl"
 	./config --prefix="${cygwin_path}" threads no-shared no-dso no-comp
