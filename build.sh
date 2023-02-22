@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 with_openssl="${1:-no}"
-cygwin_path="$(cygpath -u "${2}")"
+cygwin_path="${2}"
 HOME="$(pwd)"
 
 printf '\n%b\n' " \e[93m\U25cf\e[0m With openssl = ${with_openssl}"

@@ -1,1 +1,0 @@
-automake,curl,gcc-core,gcc-g++,git,libtool,make,pkg-config,tar
