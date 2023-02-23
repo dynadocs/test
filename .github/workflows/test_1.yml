@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: test 1
-        run: echo test job
+        run: exit 1
