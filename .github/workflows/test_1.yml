@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: test 1
-        run: pr test success
+        run: echo "pr test success"
